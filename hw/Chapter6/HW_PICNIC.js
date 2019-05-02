@@ -41,7 +41,7 @@
             }
         }
         return ret;
-    }
+    };
     
     let count = getPairCount(isTaken);
     

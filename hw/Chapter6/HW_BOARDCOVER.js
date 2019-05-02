@@ -17,7 +17,7 @@ const setLocation = (board, y, x, type, delta) => {
         }
     }
     return isOk;
-}
+};
 
 const cover = (board) => {
     let y = -1, x = -1;
@@ -41,7 +41,7 @@ const cover = (board) => {
         setLocation(board, y, x, type, -1);
     }
     return ret;
-}
+};
 
 // let board = [
 //     [1, 0, 0, 0, 0, 0, 1],
