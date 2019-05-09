@@ -1,48 +1,25 @@
 
 import Foundation
 
-class Search_decimal : NSObject {
+class SearchDecimalNumber : NSObject {
     
     public func printResult() -> String {
-        
-        let members = "173"
+        let members = "011"
         let printValue = solution(members)
         return String(printValue.description)
     }
-    
+ 
+    var decimalSet : Set<Int> = Set()
     public func solution(_ numbers:String) -> Int {
         let arraynumbers = Array(numbers).map { Int(String($0)) }
-        let n = arraynumbers.count
         let r = arraynumbers.count
-        let combArr : Array<Int> = Array()
-        let count = rotationPrime(arraynumbers: arraynumbers as! Array<Int>,combArr: combArr, n: n, r: r)
-        return count
-    }
-    
-    public func rotationPrime(arraynumbers:Array<Int>, combArr:Array<Int>, n:Int, r:Int) -> Int {
-        var primeCount = 0
-        
-        if combArr.count == r {
-            //조합한 숫자가 소수인지 확인
-            let value = combArr.map {String($0)}
-            let stringRepresentation = value.joined(separator: "")
-            print(stringRepresentation)
-            if isPrime(value:  Int(stringRepresentation) ?? 0) {
-                print("소수 :" + stringRepresentation)
-                return 1
-            }
-            return 0
+        let rArray = Array(1...r)
+        var count = 0
+        //경의의수 조합의 수 에대한 루프
+        for index in rArray.reversed() {
+            count += permutation(a: arraynumbers as! [Int], n: r, r: index, depth: 0)
         }
-        var combArrCopy = Array(combArr)
-        for (_, item) in arraynumbers.enumerated() {
-            if combArrCopy.contains(item) {
-                continue
-            }
-            let arrayFilter = arraynumbers.filter { $0 != item }
-            combArrCopy.append(item)
-            primeCount = primeCount + rotationPrime(arraynumbers: arrayFilter, combArr: combArrCopy, n: n, r: r)
-        }
-        return primeCount
+        return decimalSet.count
     }
     
     //소수 구하기
@@ -51,8 +28,11 @@ class Search_decimal : NSObject {
         if value < 1 {
             return false
         }
+        if value == 1 {
+            return false
+        }
         for index in 2..<value {
-            if value / index == 0 {
+            if value % index == 0 {
                 isPrime = false
                 break
             }
@@ -60,7 +40,37 @@ class Search_decimal : NSObject {
         return isPrime
     }
     
+    //순열 
+    //https://twpower.github.io/62-permutation-by-recursion
+    func permutation(a: [Int], n: Int, r: Int, depth:Int) -> Int{
+        var count = 0
+        if r == depth {
+            //print(a)
+            let printvalue = Array(a[0..<r])
+            let valueString = printvalue.map {String($0)}
+            let stringRepresentation = valueString.joined(separator: "")
+            if isPrime(value:  Int(stringRepresentation) ?? 0) {
+                //print("소수 => "+stringRepresentation)
+                //중복 제거
+                decimalSet.insert(Int(stringRepresentation) ?? 0)
+                return 1
+            } else {
+                //print("소수아님 => "+stringRepresentation)
+                return 0
+            }
+        } else {
+            var copya = a
+            for i in depth..<n {
+                copya.swapAt(i, depth)
+                count += permutation(a: copya, n: n,r: r,depth: depth+1)
+                copya.swapAt(i, depth)
+            }
+        }
+        return count
+    }
 }
+
+
 
 //문제 설명
 //한자리 숫자가 적힌 종이 조각이 흩어져있습니다. 흩어진 종이 조각을 붙여 소수를 몇 개 만들 수 있는지 알아내려 합니다.
