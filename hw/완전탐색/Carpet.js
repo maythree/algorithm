@@ -5,20 +5,22 @@
  */
 
 function solution(brown, red) {
-    let answer = [];
-    let horizontal, vertical;
+    if (brown < 8 || brown > 5000) return false;
+    if (red < 1 || red > 2000000) return false;
     let area = brown + red;
-    let initBrownWidth = Math.round(Math.sqrt(area));
-    console.log(initBrownWidth);
-    let initRedWith = initBrownWidth - 2;
-
-    //for (let i = 0; i < Math.)
-
-    return answer;
+    let height = parseInt(Math.sqrt(area));
+    for (let i = height; i > 0; i--) {
+        let width = parseInt(area / i);
+        if (width * i === area && ((width - 2) * (i - 2)) === red) {
+            return [width, i];
+        }
+    }
 }
 
 //let brown = 10, red = 2; //[4, 3]
 //let brown = 8, red = 1; //[3, 3]
-let brown = 24, red = 24; //[8, 6]
+//let brown = 24, red = 24; //[8, 6]
+//let brown = 16, red = 5; // [7, 3]
+let brown = 5000, red = 2497; // [119, 63], [2499, 3]
 
 console.log(solution(brown, red));
