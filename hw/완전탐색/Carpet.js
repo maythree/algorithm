@@ -25,4 +25,4 @@ let brown = 5000, red = 2497; // [119, 63], [2499, 3]
 
 console.log(solution(brown, red));
 
-console.log('2');
+console.log('3');
