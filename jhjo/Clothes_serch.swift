@@ -1,6 +1,6 @@
 
 import Foundation
-
+//위장옷 갯수 완전탐색
 class Clothes : NSObject {
     
     public func printResult() -> String {
