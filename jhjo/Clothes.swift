@@ -1,6 +1,6 @@
 
 import Foundation
-//위장옷 갯수
+//위장옷 갯수 
 class Clothes : NSObject {
     
     public func printResult() -> String {
