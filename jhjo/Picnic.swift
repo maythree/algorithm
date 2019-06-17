@@ -1,6 +1,6 @@
 
 import Foundation
-
+//피크닉
 class Picnic : NSObject {
     
     public func printResult() -> String {

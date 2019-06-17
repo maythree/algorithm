@@ -1,6 +1,6 @@
 
 import Foundation
-
+//클로져 샘플
 class Closure : NSObject {
     
     public func printResult() -> String {
